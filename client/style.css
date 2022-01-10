@@ -1,3 +1,6 @@
 body {
     background-color: ghostwhite;
 }
+.className {
+    font-family: "Courier New", Courier, monospace;
+}
