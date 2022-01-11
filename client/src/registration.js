@@ -5,7 +5,7 @@ export class Registration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: "whaaat😡",
+            error: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,18 +33,30 @@ export class Registration extends Component {
             body: JSON.stringify(this.state),
         })
             .then((data) => data.json())
-            .then(
-                (data) => console.log("response data from /register.json", data)
-                //depending on whether or not we receive a successful server response
-                //we want to render an error state
-                //location reload
-            )
-            .catch((err) => console.log("err in fetch/register.json 🔴", err));
+            .then((data) => {
+                console.log("response data from /register.json", data);
+
+                if (data.success) {
+                    location.reload();
+                } else {
+                    this.setState({
+                        error: true,
+                    });
+
+                    //depending on whether or not we receive a successful server response
+                    //we want to render an error state
+                    //location reload
+                }
+            })
+            .catch((err) => {
+                console.log("err in fetch/register.json 🔴", err);
+                this.setState({ error: true });
+            });
     }
     render() {
         return (
             <>
-                <h1>Registration</h1>;
+                <h1 className="reg">Registration</h1>;
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}
@@ -80,5 +92,3 @@ export class Registration extends Component {
         );
     }
 }
-
-//constructor is a mold and prototype is like a first model
