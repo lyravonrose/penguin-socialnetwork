@@ -1,5 +1,6 @@
 //registration form
 import { Component } from "react";
+import { Link } from "react-router-dom";
 
 export class Registration extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ export class Registration extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        console.log("user wants to submit", this.state);
+        console.log("user wants to submit", JSON.stringify(this.state));
         // we now want to send over our user's data to the server
         fetch("/register.json", {
             method: "POST",
@@ -42,10 +43,6 @@ export class Registration extends Component {
                     this.setState({
                         error: true,
                     });
-
-                    //depending on whether or not we receive a successful server response
-                    //we want to render an error state
-                    //location reload
                 }
             })
             .catch((err) => {
@@ -62,7 +59,6 @@ export class Registration extends Component {
                 )}
                 <form>
                     <input
-                        className="some-css-class"
                         name="first"
                         placeholder="First Name"
                         type="text"
@@ -87,6 +83,7 @@ export class Registration extends Component {
                         onChange={this.handleChange}
                     />
                     <button onClick={this.handleSubmit}>Register</button>
+                    <Link to="/login">Click here to log in</Link>
                 </form>
             </>
         );

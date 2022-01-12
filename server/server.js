@@ -5,6 +5,10 @@ const path = require("path");
 const { compare, hash } = require("./bc");
 const cookieSession = require("cookie-session");
 const db = require("./db");
+const { sendEmail } = require("./ses");
+
+const sessionSecret =
+    process.env.SESSION_SECRET || require("./secrets.json").SESSION_SECRET;
 
 app.use(
     cookieSession({
@@ -14,7 +18,22 @@ app.use(
     })
 );
 
+if (process.env.NODE_ENV == "production") {
+    app.use((req, res, next) => {
+        if (req.headers["x-forwarded-proto"].startsWith("https")) {
+            return next();
+        }
+        res.redirect(`https://${req.hostname}${req.url}`);
+    });
+}
+
+app.use((req, res, next) => {
+    res.setHeader("x-frame-options", "deny");
+    next();
+});
+
 app.use(compression());
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
@@ -26,7 +45,7 @@ app.get("/user/id.json", function (req, res) {
 });
 
 app.post("/register.json", (req, res) => {
-    console.log("🐶", req.body);
+    console.log("req.body:", req.body);
     const { first, last, email, password } = req.body;
     hash(password)
         .then((hashedPw) => {
@@ -41,10 +60,6 @@ app.post("/register.json", (req, res) => {
             console.log("registration err:", err);
             res.json({ success: false });
         });
-});
-
-app.get("/login.json", (req, res) => {
-    res.json("login", {});
 });
 
 app.post("/login.json", (req, res) => {
@@ -69,6 +84,11 @@ app.post("/login.json", (req, res) => {
             console.log("err in compare:", err);
             res.json({ success: false });
         });
+});
+
+app.get("/logout", (req, res) => {
+    req.session.userId = null;
+    res.redirect("/");
 });
 
 app.get("*", function (req, res) {

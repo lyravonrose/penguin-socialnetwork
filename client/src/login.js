@@ -41,10 +41,6 @@ export class Login extends Component {
                     this.setState({
                         error: true,
                     });
-
-                    //depending on whether or not we receive a successful server response
-                    //we want to render an error state
-                    //location reload
                 }
             })
             .catch((err) => {
@@ -76,8 +72,9 @@ export class Login extends Component {
                         onChange={this.handleChange}
                     />
                     <button onClick={this.handleSubmit}>Login</button>
+                    <Link to="/">Click here to register :D</Link>
+                    <Link to="/reset">Reset your password</Link>
                 </form>
-                <Link to="/">Click here to register :D</Link>
             </>
         );
     }
