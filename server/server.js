@@ -95,10 +95,10 @@ app.post("/password/reset/start", (req, res) => {
             });
             db.resetCode(req.body.email, secretCode)
                 .then(() => {
-                    const recipient = `mellow.bar@spicedling.email`;
-                    const subject = `Reset your password`;
+                    const recipient = `lyravonrosejewellery@gmail.com`;
                     const body = `Here is your new code: ${secretCode}`;
-                    sendEmail(subject, body, recipient)
+                    const subject = `Reset your password`;
+                    sendEmail(recipient, body, subject)
                         .then(() => {
                             res.json({ success: true });
                         })

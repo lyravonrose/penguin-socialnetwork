@@ -9,16 +9,20 @@ if (process.env.NODE_ENV == "production") {
 }
 console.log("🍟", secrets);
 
+// aws.config = new aws.Config();
+console.log("🔴", secrets.AWS_SECRET);
+
 const ses = new aws.SES({
     acessKeyId: secrets.AWS_KEY,
     secretAccessKey: secrets.AWS_SECRET,
-    region: "eu-west-1",
+    region: "us-east-1",
 });
 
 module.exports.sendEmail = function (recipient, body, subject) {
+    console.log(aws.config);
     return ses
         .sendEmail({
-            Source: "Lyra <mellow.bar@spicedling.email>",
+            Source: "Lyra <lyravonrosejewellery@gmail.com>",
             Destination: {
                 ToAddresses: [recipient],
             },
