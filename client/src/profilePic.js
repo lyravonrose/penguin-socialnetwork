@@ -1,4 +1,10 @@
-export default function ProfilePic({ first, last, imageUrl, loggerFunc }) {
+export default function ProfilePic({
+    first,
+    last,
+    imageUrl,
+    loggerFunc,
+    onClick,
+}) {
     imageUrl = imageUrl || "default.png";
     const nameSymbols = `!!!&&&***`;
     return (
@@ -8,9 +14,12 @@ export default function ProfilePic({ first, last, imageUrl, loggerFunc }) {
                 {last}
             </h1>
             <img
-                onClick={() => loggerFunc(nameSymbols)}
+                onClick={() => {
+                    loggerFunc(nameSymbols);
+                    onClick();
+                }}
                 src={imageUrl}
-                alt={`${first}${last}`}
+                alt={`${first} ${last}`}
                 id="navbar-avatar"
             />
         </div>
@@ -18,3 +27,18 @@ export default function ProfilePic({ first, last, imageUrl, loggerFunc }) {
 }
 
 //_rfc shortcut
+//({imageUrl, toggleUploader})
+
+//onClick={toggleUploader}
+
+// export default function ProfilePic(props){
+//     console.log("props passed to ProfilePic:", props)
+//     return (
+//         <>
+
+//         </>
+//     )
+// }
+
+//props.___ : function component
+//this.props.___: class component

@@ -46,6 +46,12 @@ module.exports.updatePassword = (email, hashedPW) => {
     return db.query(q, params);
 };
 
+module.exports.getLoggedInUser = (userId) => {
+    const q = `SELECT id, first, last, profile_pic_url FROM users WHERE id = $1`;
+    const params = [userId];
+    return db.query(q, params);
+};
+
 // SELECT from password_reset_codes to retrieve the last valid reset code for a given email address if available.
 // The code being valid means that it the email and the code match and were found and that the code was generated less than 10 minutes ago.
 // UPDATE users to update the password

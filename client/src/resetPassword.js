@@ -5,6 +5,7 @@ export class ResetPassword extends Component {
         super(props);
         this.state = {
             stage: 1,
+            email: "",
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,12 +21,12 @@ export class ResetPassword extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        fetch("/reset.json", {
+        fetch("/password/reset/start", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(this.state),
+            body: JSON.stringify({ email: this.state.email }),
         })
             .then((data) => data.json())
             .then(
@@ -37,7 +38,22 @@ export class ResetPassword extends Component {
     }
     renderStage() {
         if (this.state.stage === 1) {
-            return <div>Stage 1</div>;
+            return (
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        Email:{" "}
+                        <input
+                            onChange={(e) =>
+                                this.setState({ email: e.target.value })
+                            }
+                            value={this.state.email}
+                            type="email"
+                        />
+                        <br></br>
+                        <button type="submit">Request New Password</button>
+                    </form>
+                </div>
+            );
         } else if (this.state.stage === 2) {
             return <div>Stage 2</div>;
         }

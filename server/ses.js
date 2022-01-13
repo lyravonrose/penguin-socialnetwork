@@ -7,16 +7,18 @@ if (process.env.NODE_ENV == "production") {
 } else {
     secrets = require("./secrets.json");
 }
+console.log("🍟", secrets);
+
 const ses = new aws.SES({
     acessKeyId: secrets.AWS_KEY,
     secretAccessKey: secrets.AWS_SECRET,
-    region: "us-east-1",
+    region: "eu-west-1",
 });
 
 module.exports.sendEmail = function (recipient, body, subject) {
     return ses
         .sendEmail({
-            Source: "Lyra <lyravonrosejewellery@gmail.com>",
+            Source: "Lyra <mellow.bar@spicedling.email>",
             Destination: {
                 ToAddresses: [recipient],
             },
@@ -31,5 +33,11 @@ module.exports.sendEmail = function (recipient, body, subject) {
                 },
             },
         })
-        .promise();
+        .promise()
+        .then(() => {
+            console.log("it worked");
+        })
+        .catch((error) => {
+            console.log("error in ses", error);
+        });
 };

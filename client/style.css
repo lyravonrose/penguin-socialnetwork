@@ -15,3 +15,32 @@ img {
     display: flex;
     justify-content: space-between;
 }
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    top: 10%;
+    left: 20%;
+    width: 60%;
+    height: 80%;
+    background-color: rgba(202, 40, 40, 0.8);
+    text-align: center;
+    color: white;
+    overflow-y: auto;
+}
+
+.modal img {
+    position: relative;
+    display: block;
+    width: 80%;
+    height: 350px;
+    left: 10%;
+}
+
+.modal h3 {
+    position: absolute;
+    top: -1em;
+    right: 0.5em;
+    font-size: 2em;
+    cursor: pointer;
+}

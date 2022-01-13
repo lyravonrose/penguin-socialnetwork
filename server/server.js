@@ -6,6 +6,7 @@ const { compare, hash } = require("./bc");
 const cookieSession = require("cookie-session");
 const db = require("./db");
 const { sendEmail } = require("./ses");
+const cryptoRandomString = require("crypto-random-string");
 
 const sessionSecret =
     process.env.SESSION_SECRET || require("./secrets.json").SESSION_SECRET;
@@ -86,9 +87,60 @@ app.post("/login.json", (req, res) => {
         });
 });
 
+app.post("/password/reset/start", (req, res) => {
+    db.getUserByEmailAddress(req.body.email).then(({ rows }) => {
+        if (rows[0]) {
+            const secretCode = cryptoRandomString({
+                length: 8,
+            });
+            db.resetCode(req.body.email, secretCode)
+                .then(() => {
+                    const recipient = `mellow.bar@spicedling.email`;
+                    const subject = `Reset your password`;
+                    const body = `Here is your new code: ${secretCode}`;
+                    sendEmail(subject, body, recipient)
+                        .then(() => {
+                            res.json({ success: true });
+                        })
+                        .catch((error) => {
+                            console.log("error while sending email", error);
+                            res.json({ error: true });
+                        });
+                })
+                .catch((error) => {
+                    console.log("error while reset code insert", error);
+                    res.json({ error: true });
+                });
+        } else {
+            res.json({ error: true });
+        }
+    });
+});
+
 app.get("/logout", (req, res) => {
     req.session.userId = null;
     res.redirect("/");
+});
+
+app.get("/user", (req, res) => {
+    const userId = req.session.userId;
+    db.getLoggedInUser(userId)
+        .then(({ rows }) => {
+            if (rows.length === 0) {
+                res.json({ error: true });
+            }
+            console.log(rows[0]);
+            res.json({
+                id: rows[0].id,
+                first: rows[0].first,
+                last: rows[0].last,
+                profilePicUrl: rows[0].profile_pic_url,
+            });
+        })
+        .catch((error) => {
+            console.log("error while getting logged in user", error);
+            res.json({ error: true });
+        });
 });
 
 app.get("*", function (req, res) {

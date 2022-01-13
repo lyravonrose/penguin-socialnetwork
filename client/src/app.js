@@ -7,21 +7,25 @@ export default class App extends Component {
         super();
         this.state = {
             uploaderIsVisible: false,
-            userId: {},
+            first: null,
+            last: null,
+            profilePicUrl: null,
+            // favoriteSweet: "🍦",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndOthers = this.logNameAndOthers.bind(this);
+        this.updateImgUrl = this.updateImgUrl.bind(this);
     }
     componentDidMount() {
         console.log("App component mounted🐧");
-        fetch(`/user/${this.state.userId}`)
+        fetch(`/user`)
             .then((res) => res.json())
             .then((result) => {
-                console.log("🔵", result);
-                if (result.success) {
+                if (result) {
                     this.setState({
-                        uploaderIsVisble: true,
-                        userId: result.userId,
+                        first: result.first,
+                        last: result.last,
+                        profilePicUrl: result.profilePicUrl,
                     });
                 } else {
                     this.setState({ error: true });
@@ -45,6 +49,9 @@ export default class App extends Component {
     logNameAndOthers(val) {
         console.log(this.state.name + val);
     }
+
+    updateImgUrl() {}
+
     render() {
         return (
             <>
@@ -60,12 +67,18 @@ export default class App extends Component {
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
-                        imageUrl="imposter.jpeg"
+                        imageUrl={this.state.profilePicUrl || "imposter.jpeg"}
                         loggerFunc={this.logNameAndOthers}
+                        onClick={this.toggleUploader}
                     />
                 </section>
-                {this.state.uploaderIsVisible && <Uploader />}
-                <button onClick={this.toggleUploader}>Click to Upload</button>
+                {this.state.uploaderIsVisible && (
+                    <Uploader
+                        updateImgUrl={this.updateImgUrl}
+                        // favoriteSweet={this.state.favoriteSweet}
+                        // updateFavoriteSweet={this.updateFavoriteSweet}
+                    />
+                )}
             </>
         );
     }
