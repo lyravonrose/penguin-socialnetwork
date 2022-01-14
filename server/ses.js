@@ -20,7 +20,7 @@ const ses = new aws.SES({
 });
 
 module.exports.sendEmail = function (recipient, body, subject) {
-    console.log("sendEmail");
+    console.log("sendEmail😀");
     return ses
         .sendEmail({
             Source: "Lyra <lyravonrosejewellery@gmail.com>",

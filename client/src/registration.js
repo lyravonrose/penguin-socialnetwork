@@ -83,6 +83,8 @@ export class Registration extends Component {
                         onChange={this.handleChange}
                     />
                     <button onClick={this.handleSubmit}>Register</button>
+                    <br></br>
+                    <br></br>
                     <Link to="/login">Click here to log in</Link>
                 </form>
             </>

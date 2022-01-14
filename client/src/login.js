@@ -72,7 +72,9 @@ export class Login extends Component {
                         onChange={this.handleChange}
                     />
                     <button onClick={this.handleSubmit}>Login</button>
-                    <Link to="/">Click here to register :D</Link>
+                    <br></br>
+                    <Link to="/">Click here to register</Link>
+                    <br></br>
                     <Link to="/reset">Reset your password</Link>
                 </form>
             </>

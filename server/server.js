@@ -119,6 +119,10 @@ app.post("/password/reset/start", (req, res) => {
     });
 });
 
+// app.post("/password/reset/confirm", (req, res) => {
+//     const { email, password } = req.body;
+// });
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const url = `https://onionxxib.s3.amazonaws.com/${req.file.filename}`;
 

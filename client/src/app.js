@@ -1,6 +1,7 @@
 import { Component } from "react";
 import ProfilePic from "./profilePic";
 import Uploader from "./uploader";
+import Profile from "./profile";
 
 export default class App extends Component {
     constructor() {
@@ -75,6 +76,15 @@ export default class App extends Component {
                         imageUrl={this.state.profilePicUrl}
                         loggerFunc={this.logNameAndOthers}
                         onClick={this.toggleUploader}
+                    />
+                    <Profile
+                        id={this.state.id}
+                        first={this.state.first}
+                        last={this.state.last}
+                        image={this.state.image}
+                        onClick={this.toggleUploader}
+                        bio={this.state.bio}
+                        submitBio={this.submitBio}
                     />
                 </section>
                 {this.state.uploaderIsVisible && (

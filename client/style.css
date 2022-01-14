@@ -25,7 +25,9 @@ img {
     display: flex;
     justify-content: space-between;
 }
-
+.biggerPic {
+    width: 200px;
+}
 .modal {
     position: fixed;
     z-index: 1;

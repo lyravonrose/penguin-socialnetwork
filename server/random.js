@@ -16,3 +16,40 @@
 //             res.json({ success: true });
 //         });
 // }
+// ------------------------------------------------
+
+// import { useEffect, useState } from "react";
+
+// export function HooksDemo() {
+//     const [name, setName] = useState("Onion");
+//     const [email, setEmail] = useState();
+//     const [password, setPassword] = useSate();
+//     //first being state property(name), second being function, no binding necessary
+//     useEffect(() => {
+//         console.log("in use effect");
+//     }, [password]);
+//     const handleEmailChange = (e) => {
+//         setEmail(e.target.value);
+//     };
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//     };
+//     return (
+//         <>
+//             <h1>Hello, {name}</h1>
+//             <input onChange={(e) => setName(e.target.value)} />
+//             <form>
+//                 <input
+//                     type="email"
+//                     name="email"
+//                     onChange={handleEmailChange}
+//                 ></input>
+//                 <input
+//                     type={"password"}
+//                     name="password"
+//                     onChange={(e) => setPassword(e.target.value)}
+//                 ></input>
+//             </form>
+//         </>
+//     );
+// }

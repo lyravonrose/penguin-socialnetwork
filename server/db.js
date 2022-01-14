@@ -57,6 +57,18 @@ module.exports.updateUserPic = (userId, url) => {
     const params = [userId, url];
     return db.query(q, params);
 };
+
+module.exports.updateBio = (userId, bio) => {
+    const q = `UPDATE users SET bio = $2 WHERE id = $1`;
+    const params = [userId, bio];
+    return db.query(q, params);
+};
+
+module.exports.getBio = (userId) => {
+    const q = `SELECT bio FROM users WHERE id = $1`;
+    const params = [userId];
+    return db.query(q, params);
+};
 // SELECT from password_reset_codes to retrieve the last valid reset code for a given email address if available.
 // The code being valid means that it the email and the code match and were found and that the code was generated less than 10 minutes ago.
 // UPDATE users to update the password
