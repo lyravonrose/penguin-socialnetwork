@@ -6,11 +6,21 @@ body {
         "Lucida Sans", Arial, sans-serif;
 }
 img {
-    box-shadow: 3px 3px rgba(59, 17, 17, 0.5),
-        -1em 0.7em rgba(109, 202, 167, 0.4);
+    /* box-shadow: 3px 3px rgba(59, 17, 17, 0.5),
+        -1em 0.7em rgba(109, 202, 167, 0.4); */
     max-height: 200px;
 }
-
+.pic-container {
+    text-align: center;
+}
+.profilepic {
+    width: 120px;
+    transition: transform 0.2s;
+}
+.profilepic:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
 .networkLogo {
     display: flex;
     justify-content: space-between;

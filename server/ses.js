@@ -3,6 +3,7 @@ const aws = require("aws-sdk");
 
 let secrets;
 if (process.env.NODE_ENV == "production") {
+    // console.log("in production");
     secrets = process.env;
 } else {
     secrets = require("./secrets.json");
@@ -19,7 +20,7 @@ const ses = new aws.SES({
 });
 
 module.exports.sendEmail = function (recipient, body, subject) {
-    console.log(aws.config);
+    console.log("sendEmail");
     return ses
         .sendEmail({
             Source: "Lyra <lyravonrosejewellery@gmail.com>",

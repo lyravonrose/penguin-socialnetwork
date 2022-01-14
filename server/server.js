@@ -7,6 +7,8 @@ const cookieSession = require("cookie-session");
 const db = require("./db");
 const { sendEmail } = require("./ses");
 const cryptoRandomString = require("crypto-random-string");
+const { uploader } = require("./upload");
+const s3 = require("./s3");
 
 const sessionSecret =
     process.env.SESSION_SECRET || require("./secrets.json").SESSION_SECRET;
@@ -115,6 +117,19 @@ app.post("/password/reset/start", (req, res) => {
             res.json({ error: true });
         }
     });
+});
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    const url = `https://onionxxib.s3.amazonaws.com/${req.file.filename}`;
+
+    db.updateUserPic(req.session.userId, url)
+        .then(({ rows }) => {
+            res.json({ success: true, url });
+        })
+        .catch((err) => {
+            console.log("error inserting images:", err);
+            res.json({ success: false });
+        });
 });
 
 app.get("/logout", (req, res) => {

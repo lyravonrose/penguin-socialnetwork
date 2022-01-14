@@ -15,6 +15,7 @@ export default class App extends Component {
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndOthers = this.logNameAndOthers.bind(this);
         this.updateImgUrl = this.updateImgUrl.bind(this);
+        this.closeUploader = this.closeUploader.bind(this);
     }
     componentDidMount() {
         console.log("App component mounted🐧");
@@ -45,7 +46,11 @@ export default class App extends Component {
         console.log("user wants to upload😀", this.state);
         // we now want to send over our user's data to the server
     }
-
+    closeUploader() {
+        this.setState({
+            uploaderIsVisible: false,
+        });
+    }
     logNameAndOthers(val) {
         console.log(this.state.name + val);
     }
@@ -67,14 +72,16 @@ export default class App extends Component {
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
-                        imageUrl={this.state.profilePicUrl || "imposter.jpeg"}
+                        imageUrl={this.state.profilePicUrl}
                         loggerFunc={this.logNameAndOthers}
                         onClick={this.toggleUploader}
                     />
                 </section>
                 {this.state.uploaderIsVisible && (
                     <Uploader
+                        closeUploader={this.closeUploader}
                         updateImgUrl={this.updateImgUrl}
+                        toggleUploader={this.toggleUploader}
                         // favoriteSweet={this.state.favoriteSweet}
                         // updateFavoriteSweet={this.updateFavoriteSweet}
                     />
