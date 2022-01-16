@@ -97,7 +97,7 @@ app.post("/password/reset/start", (req, res) => {
             });
             db.resetCode(req.body.email, secretCode)
                 .then(() => {
-                    const recipient = `lyravonrosejewellery@gmail.com`;
+                    const recipient = req.body.email;
                     const body = `Here is your new code: ${secretCode}`;
                     const subject = `Reset your password`;
                     sendEmail(recipient, body, subject)
@@ -119,9 +119,43 @@ app.post("/password/reset/start", (req, res) => {
     });
 });
 
-// app.post("/password/reset/confirm", (req, res) => {
-//     const { email, password } = req.body;
-// });
+app.post("/password/reset/verify", (req, res) => {
+    const { code, password, email } = req.body;
+
+    db.getCode(email)
+        .then(({ rows }) => {
+            if (rows[0]) {
+                if (rows[0].code === code) {
+                    // change password
+                    hash(password).then((hashedPw) => {
+                        db.updatePassword(email, hashedPw)
+                            .then(() => {
+                                console.log("password resetted successfully");
+                                res.json({ success: true });
+                            })
+                            .catch((err) => {
+                                console.log(
+                                    "error while resetting password",
+                                    err
+                                );
+                            });
+                    });
+                } else {
+                    console.log(
+                        "given code is not matching code found by given email"
+                    );
+                    res.json({ error: true });
+                }
+            } else {
+                console.log("no code found by given email");
+                res.json({ error: true });
+            }
+        })
+        .catch((err) => {
+            console.log("error while getting code", err);
+            res.json({ error: true });
+        });
+});
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const url = `https://onionxxib.s3.amazonaws.com/${req.file.filename}`;
@@ -159,6 +193,40 @@ app.get("/user", (req, res) => {
         .catch((error) => {
             console.log("error while getting logged in user", error);
             res.json({ error: true });
+        });
+});
+
+app.post("/submitBio", (req, res) => {
+    const { bio } = req.body;
+    const { userId } = req.session;
+    db.updateBio(userId, bio)
+        .then(() => {
+            db.getBio(userId)
+                .then(({ rows }) => {
+                    console.log("TEST", rows);
+                    const bio = rows[0].bio;
+                    res.json({ success: true, bio: bio });
+                })
+                .catch((err) => {
+                    console.log("error while getting bio after update", err);
+                    res.json({ success: false });
+                });
+        })
+        .catch((err) => {
+            console.log("error inserting bio:", err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/bio", (req, res) => {
+    const { userId } = req.session;
+    db.getBio(userId)
+        .then(({ rows }) => {
+            res.json({ bio: rows[0].bio });
+        })
+        .catch((err) => {
+            console.log("err in getting bio:", err);
+            res.json({ success: false });
         });
 });
 

@@ -7,10 +7,12 @@ export default class App extends Component {
     constructor() {
         super();
         this.state = {
+            id: null,
             uploaderIsVisible: false,
             first: null,
             last: null,
             profilePicUrl: null,
+            bio: null,
             // favoriteSweet: "🍦",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
@@ -25,9 +27,11 @@ export default class App extends Component {
             .then((result) => {
                 if (result) {
                     this.setState({
+                        id: result.id,
                         first: result.first,
                         last: result.last,
                         profilePicUrl: result.profilePicUrl,
+                        bio: result.bio,
                     });
                 } else {
                     this.setState({ error: true });
@@ -71,21 +75,26 @@ export default class App extends Component {
                         id="homepage-logo"
                     />
                     <ProfilePic
+                        thumbnail
                         first={this.state.first}
                         last={this.state.last}
                         imageUrl={this.state.profilePicUrl}
-                        loggerFunc={this.logNameAndOthers}
                         onClick={this.toggleUploader}
                     />
-                    <Profile
-                        id={this.state.id}
-                        first={this.state.first}
-                        last={this.state.last}
-                        image={this.state.image}
-                        onClick={this.toggleUploader}
-                        bio={this.state.bio}
-                        submitBio={this.submitBio}
-                    />
+                </section>
+                <hr />
+                <section>
+                    {this.state.id && (
+                        <Profile
+                            id={this.state.id}
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.profilePicUrl}
+                            toggleUploader={this.toggleUploader}
+                            bio={this.state.bio}
+                            submitBio={this.submitBio}
+                        />
+                    )}
                 </section>
                 {this.state.uploaderIsVisible && (
                     <Uploader

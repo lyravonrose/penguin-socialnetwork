@@ -8,19 +8,19 @@ if (process.env.NODE_ENV == "production") {
 } else {
     secrets = require("./secrets.json");
 }
-console.log("🍟", secrets);
 
-// aws.config = new aws.Config();
-console.log("🔴", secrets.AWS_SECRET);
+aws.config = new aws.Config();
+aws.config.accessKeyId = secrets.AWS_KEY;
+aws.config.secretAccessKey = secrets.AWS_SECRET;
 
 const ses = new aws.SES({
-    acessKeyId: secrets.AWS_KEY,
-    secretAccessKey: secrets.AWS_SECRET,
+    // acessKeyId: secrets.AWS_KEY,
+    // secretAccessKey: secrets.AWS_SECRET,
     region: "us-east-1",
 });
 
 module.exports.sendEmail = function (recipient, body, subject) {
-    console.log("sendEmail😀");
+    console.log("sendEmail😀", recipient, body, subject);
     return ses
         .sendEmail({
             Source: "Lyra <lyravonrosejewellery@gmail.com>",

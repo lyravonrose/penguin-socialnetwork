@@ -34,8 +34,7 @@ module.exports.resetCode = (email, code) => {
 };
 
 module.exports.getCode = (email) => {
-    const q = `SELECT code FROM password_reset_codes WHERE email = $1
-    AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes';`;
+    const q = `SELECT code FROM password_reset_codes WHERE email = $1`;
     const params = [email];
     return db.query(q, params);
 };
@@ -47,7 +46,7 @@ module.exports.updatePassword = (email, hashedPW) => {
 };
 
 module.exports.getLoggedInUser = (userId) => {
-    const q = `SELECT id, first, last, profile_pic_url FROM users WHERE id = $1`;
+    const q = `SELECT id, first, last, profile_pic_url, bio FROM users WHERE id = $1`;
     const params = [userId];
     return db.query(q, params);
 };

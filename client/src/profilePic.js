@@ -7,8 +7,7 @@ export default class ProfilePic extends React.Component {
     }
 
     render() {
-        const nameSymbols = `!!!&&&***`;
-        let { first, last, imageUrl, loggerFunc, onClick } = this.props;
+        let { first, last, imageUrl, onClick, thumbnail } = this.props;
         imageUrl = imageUrl || "default.png";
         return (
             <>
@@ -24,9 +23,8 @@ export default class ProfilePic extends React.Component {
                         onMouseOut={() => {
                             this.setState({ hover: false });
                         }}
-                        className="profilepic"
+                        className={`profilepic ${thumbnail ? "thumbnail" : ""}`}
                         onClick={() => {
-                            loggerFunc(nameSymbols);
                             onClick();
                         }}
                         src={imageUrl}
@@ -40,18 +38,3 @@ export default class ProfilePic extends React.Component {
 }
 
 //_rfc shortcut
-//({imageUrl, toggleUploader})
-
-//onClick={toggleUploader}
-
-// export default function ProfilePic(props){
-//     console.log("props passed to ProfilePic:", props)
-//     return (
-//         <>
-
-//         </>
-//     )
-// }
-
-//props.___ : function component
-//this.props.___: class component

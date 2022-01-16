@@ -4,22 +4,11 @@ export default class BioEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editBioMode: false,
-            bio: null,
+            bio: this.props.bio || "",
         };
-        this.toggleEditBioMode = this.toggleEditBioMode.bind(this);
-        this.uploadBio = this.uploadBio.bind(this);
         this.submitBio = this.submitBio.bind(this);
     }
-    componentDidMount() {}
 
-    toggleEditBioMode() {
-        this.setState({ editBioMode: !this.state.editBioMode });
-    }
-    uploadBio(e) {
-        console.log(e);
-        this.setState({ bio: e.target.values[0] });
-    }
     submitBio(e) {
         e.preventDefault();
         fetch("/submitBio", {
@@ -32,6 +21,7 @@ export default class BioEditor extends React.Component {
             .then((res) => res.json())
             .then((result) => {
                 console.log("result: ", result);
+                this.props.onSubmit();
             })
             .catch((err) => {
                 console.log("error: ", err);
@@ -39,10 +29,16 @@ export default class BioEditor extends React.Component {
     }
     render() {
         return (
-            <>
-                <textarea defaultValue={!this.props.editBioMode}></textarea>
-                {!this.state.editBioMode && <button>Add Bio</button>}
-            </>
+            <div>
+                <form onSubmit={this.submitBio}>
+                    <textarea
+                        onChange={(e) => this.setState({ bio: e.target.value })}
+                        value={this.state.bio}
+                    />
+
+                    <button type="submit">Add Bio</button>
+                </form>
+            </div>
         );
     }
 }

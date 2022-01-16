@@ -21,6 +21,9 @@ img {
     cursor: pointer;
     transform: scale(1.1);
 }
+.thumbnail {
+    width: 50px;
+}
 .networkLogo {
     display: flex;
     justify-content: space-between;
@@ -55,4 +58,8 @@ img {
     right: 0.5em;
     font-size: 2em;
     cursor: pointer;
+}
+
+.profile {
+    display: flex;
 }
