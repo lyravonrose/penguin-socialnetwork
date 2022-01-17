@@ -69,19 +69,3 @@ export default class Profile extends Component {
     }
 }
 //rcc
-
-// export function Profile() {
-//     return (
-//         <>
-//             <div>
-//                 <ProfilePic
-//                     className="biggerPic"
-//                     imageUrl={this.state.profilePicUrl}
-//                     loggerFunc={this.logNameAndOthers}
-//                     onClick={this.toggleUploader}
-//                 />
-//                 <BioEditor />
-//             </div>
-//         </>
-//     );
-// }

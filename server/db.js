@@ -68,6 +68,23 @@ module.exports.getBio = (userId) => {
     const params = [userId];
     return db.query(q, params);
 };
+
+module.exports.getRecentUsers = () => {
+    const q = `SELECT * FROM users ORDER BY created_at DESC LIMIT 3`;
+    return db.query(q);
+};
+
+module.exports.getUsersBySearch = (val) => {
+    const q = `SELECT * FROM users WHERE first ILIKE $1;`;
+    const params = [val + "%"];
+    return db.query(q, params);
+};
+module.exports.getUserDataById = (userId) => {
+    const q = `SELECT id, first, last, profile_pic_url, bio FROM users WHERE id = $1`;
+    const params = [userId];
+    return db.query(q, params);
+};
+
 // SELECT from password_reset_codes to retrieve the last valid reset code for a given email address if available.
 // The code being valid means that it the email and the code match and were found and that the code was generated less than 10 minutes ago.
 // UPDATE users to update the password

@@ -63,3 +63,8 @@ img {
 .profile {
     display: flex;
 }
+
+.navigation {
+    text-align: right;
+    margin: 2em;
+}

@@ -1,7 +1,10 @@
 import { Component } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import ProfilePic from "./profilePic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import FindPeople from "./findPeople";
+import OtherProfile from "./otherProfile";
 
 export default class App extends Component {
     constructor() {
@@ -13,11 +16,9 @@ export default class App extends Component {
             last: null,
             profilePicUrl: null,
             bio: null,
-            // favoriteSweet: "🍦",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndOthers = this.logNameAndOthers.bind(this);
-        this.updateImgUrl = this.updateImgUrl.bind(this);
         this.closeUploader = this.closeUploader.bind(this);
     }
     componentDidMount() {
@@ -60,51 +61,57 @@ export default class App extends Component {
         console.log(this.state.name + val);
     }
 
-    updateImgUrl() {}
-
     render() {
         return (
             <>
-                <section
-                    className="networkLogo"
-                    // style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                    <img
-                        src="emperor.jpeg"
-                        alt="social network logo"
-                        id="homepage-logo"
-                    />
-                    <ProfilePic
-                        thumbnail
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.profilePicUrl}
-                        onClick={this.toggleUploader}
-                    />
-                </section>
-                <hr />
-                <section>
-                    {this.state.id && (
-                        <Profile
-                            id={this.state.id}
+                <BrowserRouter>
+                    <section
+                        className="networkLogo"
+                        // style={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                        <Link to="/">
+                            <img
+                                src="emperor.jpeg"
+                                alt="social network logo"
+                                id="homepage-logo"
+                            />
+                        </Link>
+                        <div className="navigation">
+                            <Link to="/users">Find penguins</Link>
+                        </div>
+                        <ProfilePic
+                            thumbnail
                             first={this.state.first}
                             last={this.state.last}
                             imageUrl={this.state.profilePicUrl}
+                            onClick={this.toggleUploader}
+                        />
+                    </section>
+                    <hr />
+                    <Route exact path="/">
+                        <section>
+                            {this.state.id && (
+                                <Profile
+                                    id={this.state.id}
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    imageUrl={this.state.profilePicUrl}
+                                    toggleUploader={this.toggleUploader}
+                                    bio={this.state.bio}
+                                    submitBio={this.submitBio}
+                                />
+                            )}
+                        </section>
+                    </Route>
+                    <Route path="/users" component={FindPeople} />
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            closeUploader={this.closeUploader}
                             toggleUploader={this.toggleUploader}
-                            bio={this.state.bio}
-                            submitBio={this.submitBio}
                         />
                     )}
-                </section>
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        closeUploader={this.closeUploader}
-                        updateImgUrl={this.updateImgUrl}
-                        toggleUploader={this.toggleUploader}
-                        // favoriteSweet={this.state.favoriteSweet}
-                        // updateFavoriteSweet={this.updateFavoriteSweet}
-                    />
-                )}
+                    <Route path="/user/:id" component={OtherProfile} />
+                </BrowserRouter>
             </>
         );
     }

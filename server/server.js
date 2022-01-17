@@ -230,6 +230,50 @@ app.get("/bio", (req, res) => {
         });
 });
 
+app.get("/listUsers", (req, res) => {
+    db.getRecentUsers()
+        .then(({ rows }) => {
+            res.json({ data: rows });
+        })
+        .catch((err) => {
+            console.log("error while getting recent users", err);
+            res.json({ error: true });
+        });
+});
+
+app.get("/listUsers/:search", (req, res) => {
+    db.getUsersBySearch(req.params.search)
+        .then(({ rows }) => {
+            res.json({ data: rows });
+        })
+        .catch((err) => {
+            console.log("error while getting users by search", err);
+            res.json({ error: true });
+        });
+});
+
+app.get("/api/user/:id", (req, res) => {
+    const { userId } = req.session;
+    const { id } = req.params;
+    console.log("id", userId, id);
+    if (userId === id) {
+        res.redirect("/");
+    } else {
+        db.getUserDataById(id)
+            .then(({ rows }) => {
+                if (rows.length === 0) {
+                    res.redirect("/");
+                } else {
+                    res.json({ success: true, data: rows[0] });
+                }
+            })
+            .catch((err) => {
+                console.log("error while getting users by Id", err);
+                res.json({ error: true });
+            });
+    }
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
