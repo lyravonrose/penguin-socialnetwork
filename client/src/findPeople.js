@@ -44,8 +44,10 @@ const FindPeople = () => {
                     {users.map((user) => {
                         return (
                             <div key={user.id}>
-                                <img src={user.profile_pic_url} />
-                                {user.first} {user.last}
+                                <Link to={`/user/${user.id}`}>
+                                    <img src={user.profile_pic_url} />
+                                    {user.first} {user.last}
+                                </Link>
                             </div>
                         );
                     })}
