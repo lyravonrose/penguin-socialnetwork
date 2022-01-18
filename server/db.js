@@ -85,6 +85,23 @@ module.exports.getUserDataById = (userId) => {
     return db.query(q, params);
 };
 
-// SELECT from password_reset_codes to retrieve the last valid reset code for a given email address if available.
-// The code being valid means that it the email and the code match and were found and that the code was generated less than 10 minutes ago.
-// UPDATE users to update the password
+module.exports.getRelationship = (userId, viewedId) => {
+    const q = `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [userId, viewedId];
+    return db.query(q, params);
+};
+module.exports.requestRelationship = (user1, user2) => {
+    const q = `INSERT INTO friendships (sender_id, recipient_id) VALUES ($1, $2) RETURNING sender_id, recipient_id, accepted`;
+    const params = [user1, user2];
+    return db.query(q, params);
+};
+module.exports.acceptRelationship = (user1, user2) => {
+    const q = `UPDATE friendships SET accepted = true WHERE (sender_id = $1 AND recipient_id = $2) OR (sender_id = $2 AND recipient_id = $1) RETURNING accepted`;
+    const params = [user1, user2];
+    return db.query(q, params);
+};
+module.exports.cancelRelationship = (user1, user2) => {
+    const q = `DELETE FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [user1, user2];
+    return db.query(q, params);
+};

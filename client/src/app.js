@@ -71,7 +71,7 @@ export default class App extends Component {
                     >
                         <Link to="/">
                             <img
-                                src="emperor.jpeg"
+                                src="/emperor.jpeg"
                                 alt="social network logo"
                                 id="homepage-logo"
                             />

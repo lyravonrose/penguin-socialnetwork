@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS password_reset_codes;
 DROP TABLE IF EXISTS users;
 
@@ -19,6 +20,11 @@ CREATE TABLE password_reset_codes(
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
-  
+CREATE TABLE friendships( 
+  id SERIAL PRIMARY KEY, 
+  sender_id INT REFERENCES users(id) NOT NULL,
+  recipient_id INT REFERENCES users(id) NOT NULL,
+  accepted BOOLEAN DEFAULT false
+  );
 
 

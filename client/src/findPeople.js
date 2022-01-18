@@ -24,7 +24,7 @@ const FindPeople = () => {
             <h2>Find penguins</h2>
             {!search && (
                 <div>
-                    <h3>Checkout who just joined 🐧</h3>
+                    <h3>Check out who just joined 🐧</h3>
                     {users.map((user) => {
                         return (
                             <div key={user.id}>

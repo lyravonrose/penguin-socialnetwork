@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import FriendButton from "./friendButton";
 
 const OtherProfile = () => {
     const [user, setUser] = useState(null);
@@ -30,6 +31,8 @@ const OtherProfile = () => {
                     </h2>
                     <p>{user.bio}</p>
                     <img src={user.profile_pic_url} />
+                    <br></br>
+                    <FriendButton />
                 </div>
             )}
         </>
