@@ -29,7 +29,13 @@ const FindPeople = () => {
                         return (
                             <div key={user.id}>
                                 <Link to={`/user/${user.id}`}>
-                                    <img src={user.profile_pic_url} />
+                                    <img
+                                        className="profilepic"
+                                        src={
+                                            user.profile_pic_url ||
+                                            "/default.png"
+                                        }
+                                    />
                                     {user.first} {user.last}
                                 </Link>
                             </div>
@@ -45,7 +51,13 @@ const FindPeople = () => {
                         return (
                             <div key={user.id}>
                                 <Link to={`/user/${user.id}`}>
-                                    <img src={user.profile_pic_url} />
+                                    <img
+                                        className="profilepic"
+                                        src={
+                                            user.profile_pic_url ||
+                                            "/default.png"
+                                        }
+                                    />
                                     {user.first} {user.last}
                                 </Link>
                             </div>

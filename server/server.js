@@ -276,7 +276,7 @@ app.get("/api/user/:id", (req, res) => {
 
 app.get("/api/relation/:id", (req, res) => {
     const { userId } = req.session;
-    const { sender_id, recipient_id } = req.params;
+    const { id: recipient_id } = req.params;
 
     db.getRelationship(userId, recipient_id)
         .then(({ rows }) => {
@@ -286,7 +286,34 @@ app.get("/api/relation/:id", (req, res) => {
             console.log("error while getting relationship", err);
             res.json({ error: true });
         });
-    // }
+});
+
+app.post("/api/relation/:action/:id", async (req, res) => {
+    const { userId: sender_id } = req.session;
+    const { id: recipient_id, action } = req.params;
+
+    async function executeAction() {
+        switch (action) {
+            case "request":
+                return await db.requestRelationship(sender_id, recipient_id);
+            case "accept":
+                return await db.acceptRelationship(sender_id, recipient_id);
+            case "cancel":
+            case "delete":
+                return await db.cancelRelationship(sender_id, recipient_id);
+            default:
+                throw new Error("Action doesn't exist");
+        }
+    }
+    executeAction()
+        .then(({ data }) => {
+            console.log("ACTION DATA", data);
+            res.json({ success: true, data });
+        })
+        .catch((err) => {
+            console.log("error while making actions:", action, err);
+            res.json({ error: true });
+        });
 });
 
 app.get("*", function (req, res) {

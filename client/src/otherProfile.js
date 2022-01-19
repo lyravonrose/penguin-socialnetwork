@@ -30,9 +30,12 @@ const OtherProfile = () => {
                         {user.first} {user.last}
                     </h2>
                     <p>{user.bio}</p>
-                    <img src={user.profile_pic_url} />
+                    <img
+                        className="profilepic"
+                        src={user.profile_pic_url || "/default.png"}
+                    />
                     <br></br>
-                    <FriendButton />
+                    <FriendButton id={id} />
                 </div>
             )}
         </>

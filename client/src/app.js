@@ -79,13 +79,18 @@ export default class App extends Component {
                         <div className="navigation">
                             <Link to="/users">Find penguins</Link>
                         </div>
-                        <ProfilePic
-                            thumbnail
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageUrl={this.state.profilePicUrl}
-                            onClick={this.toggleUploader}
-                        />
+                        <div>
+                            <ProfilePic
+                                thumbnail
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.profilePicUrl}
+                                onClick={this.toggleUploader}
+                            />
+                            <a href="/logout">
+                                <button>Log Out 💨</button>
+                            </a>
+                        </div>
                     </section>
                     <hr />
                     <Route exact path="/">
