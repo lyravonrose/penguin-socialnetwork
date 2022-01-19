@@ -274,6 +274,21 @@ app.get("/api/user/:id", (req, res) => {
     }
 });
 
+app.get("/api/relation/:id", (req, res) => {
+    const { userId } = req.session;
+    const { sender_id, recipient_id } = req.params;
+
+    db.getRelationship(userId, recipient_id)
+        .then(({ rows }) => {
+            res.json({ success: true, data: rows[0] });
+        })
+        .catch((err) => {
+            console.log("error while getting relationship", err);
+            res.json({ error: true });
+        });
+    // }
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

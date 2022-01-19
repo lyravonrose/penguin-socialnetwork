@@ -14,7 +14,7 @@ aws.config.accessKeyId = secrets.AWS_KEY;
 aws.config.secretAccessKey = secrets.AWS_SECRET;
 
 const ses = new aws.SES({
-    // acessKeyId: secrets.AWS_KEY,
+    // accessKeyId: secrets.AWS_KEY,
     // secretAccessKey: secrets.AWS_SECRET,
     region: "us-east-1",
 });
