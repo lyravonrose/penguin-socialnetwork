@@ -305,6 +305,7 @@ app.post("/api/relation/:action/:id", async (req, res) => {
                 throw new Error("Action doesn't exist");
         }
     }
+
     executeAction()
         .then(({ data }) => {
             console.log("ACTION DATA", data);
@@ -312,6 +313,19 @@ app.post("/api/relation/:action/:id", async (req, res) => {
         })
         .catch((err) => {
             console.log("error while making actions:", action, err);
+            res.json({ error: true });
+        });
+});
+
+app.get("/api/friends-and-wannabes", (req, res) => {
+    const { userId } = req.session;
+
+    db.retrieveFriendStatus(userId)
+        .then(({ rows }) => {
+            res.json({ success: true, data: rows[0] });
+        })
+        .catch((err) => {
+            console.log("error while getting friends & wannabes", err);
             res.json({ error: true });
         });
 });
