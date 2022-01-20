@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 const FriendButton = ({ id }) => {
     const [buttonText, setButton] = useState("");
-    const [clickButton, setClickButton] = useState(false);
 
     function getRelation() {
         fetch(`/api/relation/${id}`)
@@ -52,7 +51,7 @@ const FriendButton = ({ id }) => {
     useEffect(() => {
         getRelation();
         return () => {};
-    }, [clickButton, buttonText]);
+    }, [buttonText]);
 
     return (
         <>
