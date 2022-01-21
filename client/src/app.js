@@ -5,6 +5,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import FindPeople from "./findPeople";
 import OtherProfile from "./otherProfile";
+import FriendsAndWannabees from "./friends-and-wannabes";
 
 export default class App extends Component {
     constructor() {
@@ -78,6 +79,11 @@ export default class App extends Component {
                         </Link>
                         <div className="navigation">
                             <Link to="/users">Find penguins</Link>
+                        </div>
+                        <div className="listOfFriends">
+                            <Link to="/friends-and-wannabes">
+                                List of Friends
+                            </Link>
                         </div>
                         <div>
                             <ProfilePic
