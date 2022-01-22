@@ -256,8 +256,8 @@ app.get("/api/user/:id", (req, res) => {
     const { userId } = req.session;
     const { id } = req.params;
     console.log("id", userId, id);
-    if (userId === id) {
-        res.redirect("/");
+    if (userId == id) {
+        res.json({ redirect: true });
     } else {
         db.getUserDataById(id)
             .then(({ rows }) => {
@@ -308,7 +308,6 @@ app.post("/api/relation/:action/:id", async (req, res) => {
 
     executeAction()
         .then(({ data }) => {
-            console.log("ACTION DATA", data);
             res.json({ success: true, data });
         })
         .catch((err) => {
@@ -319,10 +318,10 @@ app.post("/api/relation/:action/:id", async (req, res) => {
 
 app.get("/api/friends-and-wannabes", (req, res) => {
     const { userId } = req.session;
-
     db.retrieveFriendStatus(userId)
         .then(({ rows }) => {
-            res.json({ success: true, data: rows[0] });
+            console.log("rows:", rows);
+            res.json({ success: true, data: rows });
         })
         .catch((err) => {
             console.log("error while getting friends & wannabes", err);

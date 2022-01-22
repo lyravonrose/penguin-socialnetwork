@@ -16,7 +16,7 @@ export default function friendsAndWannabeesReducer(
         );
         return newFriendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/receive") {
-        friendsAndWannabees = action.payload.friendships;
+        return action.payload.friendships;
         //         received: just set the state to the list of friends and wannabees
     } else if (action.type === "friends-and-wannabees/cancel") {
         const newFriendsAndWannabees = friendsAndWannabees.filter(

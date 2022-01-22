@@ -108,11 +108,11 @@ module.exports.cancelRelationship = (user1, user2) => {
 
 module.exports.retrieveFriendStatus = (userId) => {
     const q = `SELECT users.id, users.first, users.last, users.profile_pic_url, accepted
-  FROM friendships
-  JOIN users ON (accepted = FALSE AND recipient_id = $1 AND sender_id = users.id) OR
+            FROM friendships
+            JOIN users ON (accepted = FALSE AND recipient_id = $1 AND sender_id = users.id) OR
                 (accepted = TRUE AND recipient_id = $1 AND sender_id = users.id) OR
-                (accepted = TRUE AND sender_id = $1 AND recipient_id = users.id) OR
-                (accepted = FALSE AND sender_id = $1 AND recipient_id = users.id)`;
+               (accepted = TRUE AND sender_id = $1 AND recipient_id = users.id);`;
+
     const params = [userId];
     return db.query(q, params);
 };
