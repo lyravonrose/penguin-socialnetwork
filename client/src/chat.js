@@ -19,11 +19,8 @@ export default function Chat() {
         if (e.key === "Enter") {
             e.preventDefault();
             console.log("e.target.value:", e.target.value);
-            socket.emit("newChatMessage:", e.target.value);
-            // setChatMessages([...ChatMessages, e.target.value]);
-            textareaRef.current.style.cssText = `
-            background-color:${e.target.value.split("")[0]}
-            `;
+            socket.emit("newChatMessage", e.target.value);
+            textareaRef.current.value = "";
         }
     };
 
@@ -33,26 +30,32 @@ export default function Chat() {
                 className="chat-container"
                 ref={chatContainerRef}
                 style={{
-                    height: "30vh",
-                    width: "300px",
+                    height: "200px",
+                    width: "500px",
                     backgroundColor: "white",
                     overflowY: "scroll",
                     display: "flex",
-                    flexDirection: "colume-reverse",
+                    flexDirection: "column-reverse",
                 }}
             >
-                <p>Chat message</p>
-
-                {chatMessages.map((message, i) => (
-                    <p key={i}>{message}</p>
+                {chatMessages?.map((message, i) => (
+                    <div key={i}>
+                        <img
+                            className={"thumb"}
+                            src={message.profile_pic_url || "/default.png"}
+                        />
+                        <strong>{message.first} : </strong>
+                        {message.message} <em>{message.created_at}</em>
+                    </div>
                 ))}
             </div>
+            <br></br>
             <textarea
                 ref={textareaRef}
                 className="input-container"
                 onKeyDown={keyCheck}
                 placeholder="Please enter a chat message"
-                rows="10"
+                rows="5"
             />
         </>
     );

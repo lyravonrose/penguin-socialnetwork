@@ -14,6 +14,8 @@ const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
+const moment = require("moment");
+
 const sessionSecret =
     process.env.SESSION_SECRET || require("./secrets.json").SESSION_SECRET;
 
@@ -346,7 +348,7 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening 🍰.");
 });
 
@@ -361,17 +363,31 @@ io.on("connection", (socket) => {
     db.retrieveLastTenMessages()
         .then(({ rows }) => {
             console.log("rows:", rows);
-            socket.emit("chat:::", rows);
+            rows.forEach((message) => {
+                message.created_at = moment(message.created_at).format("lll");
+            });
+            socket.emit("chatMessages", rows);
         })
         .catch((err) => {
             console.log("err getting last 10 msgs:", err);
         });
+
     socket.on("newChatMessage", (message) => {
         console.log("message", message);
         const { userId } = socket.request.session;
         db.addChatMessage(userId, message)
             .then(({ rows }) => {
                 console.log("rows:", rows);
+                db.retrieveMessageById(rows[0].id)
+                    .then(({ rows }) => {
+                        rows[0].created_at = moment(rows[0].created_at).format(
+                            "lll"
+                        );
+                        socket.emit("chatMessage", rows[0]);
+                    })
+                    .catch((err) =>
+                        console.log("err while getting message by id", err)
+                    );
             })
             .catch((err) => {
                 console.log("error inserting message:", err);

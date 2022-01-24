@@ -125,7 +125,7 @@ export default class App extends Component {
                     )}
                     <Route path="/user/:id" component={OtherProfile} />
                     <Route path="/friends" component={FriendsAndWannabees} />
-                    <Route path="/chat" component={Chat}>
+                    <Route path="/chat">
                         <Chat />
                     </Route>
                 </BrowserRouter>

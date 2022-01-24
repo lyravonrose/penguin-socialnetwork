@@ -1,7 +1,11 @@
 export default function chatMessagesReducer(chatMessages = null, action) {
     if (action.type === "chat-messages") {
-        action.payload.chatMessages;
+        return action.payload.chatMessages;
     }
+    if (action.type === "chat-message") {
+        return [action.payload.chatMessage, ...chatMessages];
+    }
+    return chatMessages;
 }
 
 export function chatMessagesReceived(chatMessages) {
