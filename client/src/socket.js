@@ -11,6 +11,9 @@ export const init = (store) => {
     if (!socket) {
         socket = io.connect();
 
+        socket.on("test", (data) => {
+            console.log("data:", data);
+        });
         socket.on("chatMessages", (msgs) =>
             store.dispatch(chatMessagesReceived(msgs))
         );
@@ -18,8 +21,5 @@ export const init = (store) => {
         socket.on("chatMessage", (msg) =>
             store.dispatch(chatMessageReceived(msg))
         );
-        socket.on("test", (data) => {
-            console.log("data:", data);
-        });
     }
 };

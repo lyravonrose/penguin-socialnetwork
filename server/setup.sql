@@ -36,5 +36,5 @@ CREATE TABLE chatMessages(
       );
 
 
-INSERT INTO chatMessages (user_id, message) VALUES ('145', 'Hey everyone, nice to meet you...');
-INSERT INTO chatMessages (user_id, message) VALUES ('101', 'Hello there!');
+INSERT INTO chatMessages (user_id, message) VALUES (145, 'Hey everyone, nice to meet you...');
+INSERT INTO chatMessages (user_id, message) VALUES (101, 'Hello there!');

@@ -116,3 +116,18 @@ module.exports.retrieveFriendStatus = (userId) => {
     const params = [userId];
     return db.query(q, params);
 };
+module.exports.addChatMessage = (userId, message) => {
+    const q = `INSERT INTO chatMessages (user_id, message) VALUES ($1, $2) RETURNING created_at;`;
+    const params = [userId, message];
+    return db.query(q, params);
+};
+
+module.exports.retrieveLastTenMessages = (userId) => {
+    const q = `SELECT chatMessages.id, chatMessages.message, chatMessages.user_id, chatMessages.created_at, users.first, users.last, users.profile_pic_url
+                FROM chatMessages
+                JOIN users ON (chatMessages.user_id = users.id)
+                ORDER BY chatMessages.id DESC
+                LIMIT 10;`;
+    const params = [userId];
+    return db.query(q, params);
+};

@@ -1,21 +1,16 @@
 import { useSelector } from "react-redux";
 import { socket } from "./socket";
 import { useEffect, useRef, useState } from "react";
+import {
+    chatMessagesReceived,
+    chatMessageReceived,
+} from "./redux/messages/slice.js";
 
 export default function Chat() {
     const textareaRef = useRef();
     const chatContainerRef = useRef();
-    const chatMessages = useSelector((state) => state?.chat);
-    const [chatMessages, setChatMessages] = useState([
-        "Hello this is a chat message",
-        "Hello this is a chat message",
-        "Hello this is a chat message",
-        "Hello this is a chat message",
-        "Hello this is a chat message",
-        "Hello this is a chat message",
-        "Hello this is a chat message",
-        "Hello this is a chat message",
-    ]);
+    const chatMessages = useSelector((state) => state?.chatMessages);
+
     useEffect(() => {
         chatContainerRef.current.scrollTop =
             chatContainerRef.current.scrollHeight;
@@ -25,12 +20,13 @@ export default function Chat() {
             e.preventDefault();
             console.log("e.target.value:", e.target.value);
             socket.emit("newChatMessage:", e.target.value);
-            setChatMessages([...ChatMessages, e.target.value]);
+            // setChatMessages([...ChatMessages, e.target.value]);
             textareaRef.current.style.cssText = `
             background-color:${e.target.value.split("")[0]}
             `;
         }
     };
+
     return (
         <>
             <div
@@ -46,15 +42,8 @@ export default function Chat() {
                 }}
             >
                 <p>Chat message</p>
-                <p>Chat message</p>
-                <p>Chat message</p>
-                <p>Chat message</p>
-                <p>Chat message</p>
-                <p>Chat message</p>
-                <p>Chat message</p>
-                <p>Chat message</p>
 
-                {ChatMessages.map((message, i) => (
+                {chatMessages.map((message, i) => (
                     <p key={i}>{message}</p>
                 ))}
             </div>

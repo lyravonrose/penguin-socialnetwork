@@ -358,23 +358,25 @@ io.on("connection", (socket) => {
     console.log(
         `User with the ID: ${socket.id} and the userId: ${socket.request.session.userId} connected`
     );
-    db.getLastTenChatMessages()
+    db.retrieveLastTenMessages()
         .then(({ rows }) => {
             console.log("rows:", rows);
-            socket.emit("test:", {
-                info: ["this is very", "important info", "for the client"],
-            });
+            socket.emit("chat:::", rows);
         })
         .catch((err) => {
             console.log("err getting last 10 msgs:", err);
         });
     socket.on("newChatMessage", (message) => {
         console.log("message", message);
-        //add message to DB
-        // 1.store new chat message in the database
-        // 2.find out who user is
-        // - we have their user ID. we need their name and image url
-        //THEN: emit an object to every connected user which matches the format of all the initially emitted chat messages
+        const { userId } = socket.request.session;
+        db.addChatMessage(userId, message)
+            .then(({ rows }) => {
+                console.log("rows:", rows);
+            })
+            .catch((err) => {
+                console.log("error inserting message:", err);
+            });
+
         io.emit("test:", "Message received");
     });
 });
