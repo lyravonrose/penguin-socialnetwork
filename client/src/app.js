@@ -6,6 +6,7 @@ import Profile from "./profile";
 import FindPeople from "./findPeople";
 import OtherProfile from "./otherProfile";
 import FriendsAndWannabees from "./friendsAndWannabes";
+import Chat from "./chat";
 
 export default class App extends Component {
     constructor() {
@@ -83,6 +84,9 @@ export default class App extends Component {
                         <div className="listOfFriends">
                             <Link to="/friends">List of Friends</Link>
                         </div>
+                        <div className="chat">
+                            <Link to="/chat">Chat</Link>
+                        </div>
                         <div>
                             <ProfilePic
                                 thumbnail
@@ -121,6 +125,9 @@ export default class App extends Component {
                     )}
                     <Route path="/user/:id" component={OtherProfile} />
                     <Route path="/friends" component={FriendsAndWannabees} />
+                    <Route path="/chat">
+                        <Chat />
+                    </Route>
                 </BrowserRouter>
             </>
         );

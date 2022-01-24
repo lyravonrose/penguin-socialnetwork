@@ -9,17 +9,30 @@ const { sendEmail } = require("./ses");
 const cryptoRandomString = require("crypto-random-string");
 const { uploader } = require("./upload");
 const s3 = require("./s3");
-
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
 const sessionSecret =
     process.env.SESSION_SECRET || require("./secrets.json").SESSION_SECRET;
 
-app.use(
-    cookieSession({
-        secret: `where is my smoothie`,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-        sameSite: true,
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: `where is my smoothie`,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    sameSite: true,
+});
+
+app.use(cookieSessionMiddleware);
+
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
+//     const userId = socket.request.session.userId;
+//     console.log("🌰:", userId);
+//     /* ... */
+// });
 
 if (process.env.NODE_ENV == "production") {
     app.use((req, res, next) => {
@@ -335,4 +348,33 @@ app.get("*", function (req, res) {
 
 app.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening 🍰.");
+});
+
+io.on("connection", (socket) => {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    console.log(
+        `User with the ID: ${socket.id} and the userId: ${socket.request.session.userId} connected`
+    );
+    db.getLastTenChatMessages()
+        .then(({ rows }) => {
+            console.log("rows:", rows);
+            socket.emit("test:", {
+                info: ["this is very", "important info", "for the client"],
+            });
+        })
+        .catch((err) => {
+            console.log("err getting last 10 msgs:", err);
+        });
+    socket.on("newChatMessage", (message) => {
+        console.log("message", message);
+        //add message to DB
+        // 1.store new chat message in the database
+        // 2.find out who user is
+        // - we have their user ID. we need their name and image url
+        //THEN: emit an object to every connected user which matches the format of all the initially emitted chat messages
+        io.emit("test:", "Message received");
+    });
 });

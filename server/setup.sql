@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS chatMessages;
 DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS password_reset_codes;
 DROP TABLE IF EXISTS users;
@@ -27,4 +28,13 @@ CREATE TABLE friendships(
   accepted BOOLEAN DEFAULT false
   );
 
+CREATE TABLE chatMessages(
+      id SERIAL PRIMARY KEY,
+      message TEXT NOT NULL,
+      user_id INT REFERENCES users(id) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
 
+
+INSERT INTO chatMessages (user_id, message) VALUES ('145', 'Hey everyone, nice to meet you...');
+INSERT INTO chatMessages (user_id, message) VALUES ('101', 'Hello there!');
