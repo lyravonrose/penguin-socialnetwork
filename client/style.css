@@ -1,9 +1,20 @@
 body {
-    background-color: navajowhite;
+    background-color: antiquewhite;
 }
 .reg {
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
+}
+.networkLogo {
+    display: flex;
+    justify-content: space-between;
+}
+.nav-top {
+    display: flex;
+    justify-content: space-between;
+}
+.nav-top div {
+    margin: 1.5em;
 }
 img {
     /* box-shadow: 3px 3px rgba(59, 17, 17, 0.5),
@@ -27,10 +38,7 @@ img {
 .thumb {
     width: 25px;
 }
-.networkLogo {
-    display: flex;
-    justify-content: space-between;
-}
+
 .biggerPic {
     width: 200px;
 }
@@ -67,10 +75,10 @@ img {
     display: flex;
 }
 
-.navigation {
+/* .navigation {
     text-align: right;
     margin: 2em;
-}
+} */
 
 em {
     color: rgb(207, 157, 166);

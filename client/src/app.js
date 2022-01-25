@@ -73,19 +73,21 @@ export default class App extends Component {
                     >
                         <Link to="/">
                             <img
-                                src="/emperor.jpeg"
+                                src="/pengo.jpeg"
                                 alt="social network logo"
                                 id="homepage-logo"
                             />
                         </Link>
-                        <div className="navigation">
-                            <Link to="/users">Find penguins</Link>
-                        </div>
-                        <div className="listOfFriends">
-                            <Link to="/friends">List of Friends</Link>
-                        </div>
-                        <div className="chat">
-                            <Link to="/chat">Chat</Link>
+                        <div className="nav-top">
+                            <div className="navigation">
+                                <Link to="/users">Find penguins</Link>
+                            </div>
+                            <div className="listOfFriends">
+                                <Link to="/friends">List of Friends</Link>
+                            </div>
+                            <div className="chat">
+                                <Link to="/chat">Chat</Link>
+                            </div>
                         </div>
                         <div>
                             <ProfilePic
