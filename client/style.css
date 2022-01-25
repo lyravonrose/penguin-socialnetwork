@@ -5,6 +5,7 @@ body {
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
 }
+
 .networkLogo {
     display: flex;
     justify-content: space-between;
@@ -26,6 +27,8 @@ img {
 }
 .profilepic {
     width: 120px;
+    height: 120px;
+    object-fit: cover;
     transition: transform 0.2s;
 }
 .profilepic:hover {
@@ -34,6 +37,7 @@ img {
 }
 .thumbnail {
     width: 50px;
+    height: 50px;
 }
 .thumb {
     width: 25px;
@@ -48,10 +52,11 @@ img {
     top: 10%;
     left: 20%;
     width: 60%;
-    height: 80%;
-    background-color: rgba(155, 140, 56, 0.9);
+    height: 35%;
+    background-color: rgba(216, 135, 175, 0.7);
     text-align: center;
     color: white;
+    border-radius: 150px 40px 150px 150px;
     overflow-y: auto;
 }
 
@@ -85,8 +90,9 @@ em {
 }
 .input-container {
     display: inline-block;
-    box-shadow: 5px 5px rgba(5, 170, 143, 0.5);
+    box-shadow: 7px 7px rgba(5, 170, 143, 0.5);
     border-radius: 5px;
+    width: 39%;
 }
 .chat-container {
     border-radius: 10px;
