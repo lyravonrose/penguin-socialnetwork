@@ -7,21 +7,23 @@ import { ResetPassword } from "./resetPassword";
 export default function Welcome() {
     return (
         <>
-            <Logo />
-            <h1 className="reg">Welcome to Antartica 🐧</h1>
-            <BrowserRouter>
-                <div>
-                    <Route exact path="/">
-                        <Registration />
-                    </Route>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route path="/reset">
-                        <ResetPassword />
-                    </Route>
-                </div>
-            </BrowserRouter>
+            <div className="regi">
+                <Logo />
+                <h1 className="reg">Welcome to PenguinHub 🐧</h1>
+                <BrowserRouter>
+                    <div>
+                        <Route exact path="/">
+                            <Registration />
+                        </Route>
+                        <Route path="/login">
+                            <Login />
+                        </Route>
+                        <Route path="/reset">
+                            <ResetPassword />
+                        </Route>
+                    </div>
+                </BrowserRouter>
+            </div>
         </>
     );
 }

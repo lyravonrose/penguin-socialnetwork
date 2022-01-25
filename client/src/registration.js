@@ -53,7 +53,7 @@ export class Registration extends Component {
     render() {
         return (
             <>
-                <h1 className="reg">Registration</h1>;
+                <h1 className="reg">Registration</h1>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}

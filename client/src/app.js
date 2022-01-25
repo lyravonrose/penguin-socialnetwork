@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Component, useEffect } from "react";
+import { BrowserRouter, Route, Link, useHistory } from "react-router-dom";
 import ProfilePic from "./profilePic";
 import Uploader from "./uploader";
 import Profile from "./profile";
@@ -98,7 +98,7 @@ export default class App extends Component {
                                 onClick={this.toggleUploader}
                             />
                             <a href="/logout">
-                                <button>Log Out 💨</button>
+                                <button>Log Out</button>
                             </a>
                         </div>
                     </section>
@@ -130,8 +130,19 @@ export default class App extends Component {
                     <Route path="/chat">
                         <Chat />
                     </Route>
+                    <Route path="*">
+                        <Redirect />
+                    </Route>
                 </BrowserRouter>
             </>
         );
     }
 }
+
+const Redirect = () => {
+    const history = useHistory();
+    useEffect(() => {
+        history.push("/");
+    }, []);
+    return null;
+};

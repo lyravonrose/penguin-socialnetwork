@@ -1,3 +1,5 @@
+// class notes
+
 // import React from "react";
 
 // export default class App extends React.Component {
@@ -30,4 +32,10 @@
 //             </>
 //         );
 //     }
+// }
+
+// function getUserByIds(arrayOfUserIds) {
+//     const q = `SELECT id, first, last, profile_pic FROM users WHERE id=ANY($1)`;
+//     const params = arrayOfUserIds;
+//     return db.query(q, params);
 // }

@@ -139,3 +139,10 @@ module.exports.retrieveMessageById = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+
+module.exports.deleteAccount = (userId) => {
+    const q = `DELETE * FROM users, friendships, chatMessages, password_reset_codes WHERE id= $1`;
+    const params = [userId];
+    return db.query(q, params);
+};
+//TRUNCATE users,friendships...etc?

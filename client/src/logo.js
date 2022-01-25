@@ -13,7 +13,7 @@ export class Logo extends Component {
     render() {
         return (
             <>
-                <img src="emperor.jpeg"></img>;
+                <img src="default.png"></img>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}

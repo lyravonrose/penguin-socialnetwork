@@ -22,6 +22,7 @@ export default class Uploader extends Component {
             .then((res) => res.json())
             .then((result) => {
                 console.log("result: ", result);
+                location.reload();
             })
             .catch((err) => {
                 console.log("error: ", err);
@@ -36,9 +37,7 @@ export default class Uploader extends Component {
                     <input onChange={this.updateImgFile} type="file" />
                     {/* <h2 onClick={()=>runUpdateImgUrl()}></h2> */}
                     <button>Click to Upload</button>
-                    {/* <h2 onClick={() => this.props.updateFavoriteSweet("🍥")}>
-                        🔘 Click here to update the favorite sweet for a moment
-                    </h2> */}
+                    {this.state.imagefile && <p>photo ready to be uploaded!</p>}
                 </form>
             </div>
         );

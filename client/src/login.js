@@ -54,7 +54,7 @@ export class Login extends Component {
     render() {
         return (
             <>
-                <h1 className="reg">Login</h1>;
+                <h1 className="reg">Login</h1>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}
@@ -72,6 +72,7 @@ export class Login extends Component {
                         onChange={this.handleChange}
                     />
                     <button onClick={this.handleSubmit}>Login</button>
+                    <br></br>
                     <br></br>
                     <Link to="/">Click here to register</Link>
                     <br></br>
