@@ -36,7 +36,7 @@ export default class Profile extends Component {
                         imageUrl={this.state.profilePicUrl}
                         onClick={this.props.toggleUploader}
                     />
-                    <div>
+                    <div className="bio-container">
                         <h1>
                             {this.props.first} {this.props.last}
                         </h1>

@@ -3,18 +3,19 @@ import { Component } from "react";
 export default class Uploader extends Component {
     constructor(props) {
         super(props);
-        this.state = { imagefile: "" };
+        this.state = { imagefile: "", showText: false };
         this.updateImgFile = this.updateImgFile.bind(this);
         this.uploadFile = this.uploadFile.bind(this);
     }
     updateImgFile(e) {
         console.log(e.target.files);
-        this.setState({ imagefile: e.target.files[0] });
+        this.setState({ imagefile: e.target.files[0], showText: false });
     }
     uploadFile(e) {
         e.preventDefault();
         const fd = new FormData();
         fd.append("file", this.state.imagefile);
+        this.setState({ showText: true });
         fetch("/upload", {
             method: "POST",
             body: fd,
@@ -35,9 +36,11 @@ export default class Uploader extends Component {
                 <h1>UPLOADER 🐧</h1>
                 <form onSubmit={this.uploadFile}>
                     <input onChange={this.updateImgFile} type="file" />
-                    {/* <h2 onClick={()=>runUpdateImgUrl()}></h2> */}
                     <button>Click to Upload</button>
-                    {this.state.imagefile && <p>photo ready to be uploaded!</p>}
+                    {this.state.imagefile && !this.state.showText && (
+                        <p>photo ready to be uploaded!</p>
+                    )}
+                    {this.state.showText && <p>photo is being uploaded!</p>}
                 </form>
             </div>
         );

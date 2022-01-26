@@ -89,7 +89,7 @@ export default class App extends Component {
                                 <Link to="/chat">Chat</Link>
                             </div>
                         </div>
-                        <div>
+                        <div className="left-section">
                             <ProfilePic
                                 thumbnail
                                 first={this.state.first}
@@ -97,7 +97,8 @@ export default class App extends Component {
                                 imageUrl={this.state.profilePicUrl}
                                 onClick={this.toggleUploader}
                             />
-                            <a href="/logout">
+                            <br></br>
+                            <a className="logout" href="/logout">
                                 <button>Log Out</button>
                             </a>
                         </div>

@@ -13,8 +13,7 @@ export default class ProfilePic extends React.Component {
             <>
                 <div className="pic-container">
                     <h1>
-                        {first}
-                        {last}
+                        {first} {last}
                     </h1>
                     <img
                         onMouseOver={() => {

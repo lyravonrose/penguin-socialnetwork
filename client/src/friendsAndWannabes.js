@@ -85,17 +85,23 @@ export default function FriendsAndWannabees() {
                                 <p>
                                     {wannabee.first} {wannabee.last}
                                 </p>
-                                <button
-                                    onClick={() => handleAccept(wannabee.id)}
-                                >
-                                    Accept Friendship
-                                </button>
-                                <br></br>
-                                <button
-                                    onClick={() => handleCancel(wannabee.id)}
-                                >
-                                    Reject Friendship
-                                </button>
+                                <div className="buttonArr">
+                                    <button
+                                        onClick={() =>
+                                            handleAccept(wannabee.id)
+                                        }
+                                    >
+                                        Accept Friendship
+                                    </button>
+                                    <br></br>
+                                    <button
+                                        onClick={() =>
+                                            handleCancel(wannabee.id)
+                                        }
+                                    >
+                                        Reject Friendship
+                                    </button>
+                                </div>
                             </div>
                         );
                     })}
