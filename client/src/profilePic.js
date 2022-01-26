@@ -29,7 +29,9 @@ export default class ProfilePic extends React.Component {
                         src={imageUrl}
                         alt={`${first} ${last}`}
                     />
-                    {this.state.hover && <p>upload a photo!</p>}
+                    {this.state.hover && (
+                        <p className="clickHere">upload a photo!</p>
+                    )}
                 </div>
             </>
         );

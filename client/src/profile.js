@@ -30,7 +30,7 @@ export default class Profile extends Component {
     render() {
         return (
             <>
-                <div className="profile">
+                <div className="profile card long">
                     <ProfilePic
                         className="biggerPic"
                         imageUrl={this.state.profilePicUrl}

@@ -11,7 +11,13 @@ export class Login extends Component {
     }
     componentDidMount() {
         console.log("login just mounted");
+        document.body.style.backgroundImage = "url(./pengggggguin.jpeg)";
     }
+
+    componentWillUnmount() {
+        document.body.style.backgroundImage = undefined;
+    }
+
     handleChange({ target }) {
         console.log("input value changed");
         console.log("value typed", target.value);
@@ -74,11 +80,12 @@ export class Login extends Component {
                     <button onClick={this.handleSubmit}>Login</button>
                     <br></br>
                     <br></br>
-                    <Link className="clickHere" to="/">
+                    <Link className="clickMore" to="/">
                         Click here to register
                     </Link>
                     <br></br>
-                    <Link className="clickHere" to="/reset">
+                    <br></br>
+                    <Link className="clickMore" to="/reset">
                         Reset your password
                     </Link>
                 </form>

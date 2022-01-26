@@ -78,15 +78,18 @@ export default class App extends Component {
                                 id="homepage-logo"
                             />
                         </Link>
+                        <Link to="/" className="hub">
+                            <h2>PenguinHub</h2>
+                        </Link>
                         <div className="nav-top">
                             <div className="navigation">
-                                <Link to="/users">Find penguins</Link>
+                                <Link to="/users">Find Penguins</Link>
                             </div>
                             <div className="listOfFriends">
                                 <Link to="/friends">List of Friends</Link>
                             </div>
                             <div className="chat">
-                                <Link to="/chat">Chat</Link>
+                                <Link to="/chat">Chat Room</Link>
                             </div>
                         </div>
                         <div className="left-section">

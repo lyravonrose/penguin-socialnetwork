@@ -13,6 +13,11 @@ export class Registration extends Component {
     }
     componentDidMount() {
         console.log("registration just mounted");
+        document.body.style.backgroundImage = "url(./james-eades.jpg)";
+    }
+
+    componentWillUnmount() {
+        document.body.style.backgroundImage = undefined;
     }
     handleChange({ target }) {
         console.log("input value changed");

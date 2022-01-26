@@ -21,13 +21,13 @@ const FindPeople = () => {
 
     return (
         <div>
-            <h2>Find penguins</h2>
+            <h2>Find Penguins</h2>
             {!search && (
                 <div>
                     <h3>Check out who just joined 🐧</h3>
                     {users.map((user) => {
                         return (
-                            <div key={user.id}>
+                            <div className="card pingui" key={user.id}>
                                 <Link to={`/user/${user.id}`}>
                                     <img
                                         className="profilepic"
@@ -49,7 +49,7 @@ const FindPeople = () => {
                 <div>
                     {users.map((user) => {
                         return (
-                            <div key={user.id}>
+                            <div className="card" key={user.id}>
                                 <Link to={`/user/${user.id}`}>
                                     <img
                                         className="profilepic"

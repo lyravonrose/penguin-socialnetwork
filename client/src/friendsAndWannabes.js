@@ -74,7 +74,7 @@ export default function FriendsAndWannabees() {
                 {wannabees &&
                     wannabees.map((wannabee) => {
                         return (
-                            <div key={wannabee.id}>
+                            <div className="card" key={wannabee.id}>
                                 <img
                                     className="profilepic"
                                     src={
@@ -93,7 +93,6 @@ export default function FriendsAndWannabees() {
                                     >
                                         Accept Friendship
                                     </button>
-                                    <br></br>
                                     <button
                                         onClick={() =>
                                             handleCancel(wannabee.id)
@@ -112,7 +111,7 @@ export default function FriendsAndWannabees() {
                 {friends &&
                     friends.map((friend) => {
                         return (
-                            <div key={friend.id}>
+                            <div className="card" key={friend.id}>
                                 <img
                                     className="profilepic"
                                     src={

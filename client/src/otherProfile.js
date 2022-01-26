@@ -25,7 +25,7 @@ const OtherProfile = () => {
     return (
         <>
             {user && (
-                <div>
+                <div className="card">
                     <h2>
                         {user.first} {user.last}
                     </h2>

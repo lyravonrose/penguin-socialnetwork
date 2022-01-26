@@ -24,6 +24,12 @@ body {
     color: white;
     text-shadow: 4px 2px 2px rgba(56, 15, 29, 0.9);
 }
+
+.clickMore {
+    text-decoration: none;
+    color: rgb(12, 53, 129);
+    text-shadow: 3px 2px 2px rgba(59, 124, 167, 0.8);
+}
 .networkLogo {
     display: flex;
     justify-content: space-between;
@@ -37,8 +43,8 @@ body {
 }
 .nav-top {
     display: flex;
-    width: 800px;
-    padding-left: 500px;
+    width: 400px;
+    padding-left: 350px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
 }
 .nav-top div {
@@ -97,11 +103,12 @@ img {
     height: 35%;
     /* background-color: rgba(216, 135, 175, 0.7); */
     background: linear-gradient(
-        rgba(230, 134, 201, 0.7),
+        rgba(230, 134, 201, 0.8),
         rgba(123, 236, 231, 0.6)
     );
     text-align: center;
-    color: rgb(180, 85, 160);
+    color: rgb(170, 228, 243);
+    text-shadow: 2px 1px 1px rgba(192, 53, 101, 0.8);
     border-radius: 150px 40px 150px 150px;
     overflow-y: auto;
 }
@@ -112,6 +119,13 @@ img {
     width: 80%;
     height: 350px;
     left: 10%;
+}
+.hub {
+    margin-top: -0.5em;
+    margin-left: 0.5em;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
 }
 
 .modal h3 {
@@ -147,12 +161,36 @@ em {
 }
 .bio-container {
     margin-left: 15px;
-    margin-top: 8px;
-}
-.bio-container div {
-    color: white;
 }
 
-/* .buttonArr button {
-    display: inline-block;
-} */
+.bio-container h1 {
+    text-shadow: 4px 2px 2px rgba(246, 246, 248, 0.8);
+}
+.buttonArr {
+    display: inline;
+}
+
+.buttonArr button {
+    margin-right: 7px;
+}
+.card {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 1em;
+    margin-bottom: 1em;
+    width: 300px;
+    box-shadow: 7px 7px rgba(99, 230, 253, 0.35);
+    border-radius: 0px 5px 20px 5px;
+}
+
+textarea {
+    color: rgb(212, 106, 124);
+}
+
+.long {
+    width: 400px;
+}
+.pingui a {
+    text-decoration: none;
+    color: rgba(68, 71, 78, 0.8);
+    text-shadow: 4px 2px 2px rgba(46, 147, 187, 0.9);
+}
