@@ -16,8 +16,7 @@ const io = require("socket.io")(server, {
 });
 const moment = require("moment");
 
-const sessionSecret =
-    process.env.SESSION_SECRET || require("./secrets.json").SESSION_SECRET;
+const sessionSecret = process.env.SESSION_SECRET; //|| require("./secrets.json").SESSION_SECRET;
 
 const cookieSessionMiddleware = cookieSession({
     secret: `where is my smoothie`,

@@ -6,7 +6,7 @@ if (process.env.NODE_ENV == "production") {
     // console.log("in production");
     secrets = process.env;
 } else {
-    secrets = require("./secrets.json");
+    // secrets = require("./secrets.json");
 }
 
 aws.config = new aws.Config();
